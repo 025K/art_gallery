@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  Post_id: 1
+  notice_to: 1
+  notice_status: false
+
+two:
+  Post_id: 1
+  notice_to: 1
+  notice_status: false

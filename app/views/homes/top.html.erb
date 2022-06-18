@@ -1,0 +1,72 @@
+<div class="container">
+  <div class="m-3 row hdart">
+      <%= image_tag'chara.png', size: '300x250', class: 'hdart-a fadein' %>
+      <%= image_tag'logo.png', size: '380x110', class: 'hdart-b fadein' %>
+  </div>
+  <div claas="row">
+   <ul class="nav nav-tabs" id="myTab" role="tablist">
+     <li class="nav-item col btn-danger">
+       <a class="nav-link active" id="home-tab" data-toggle="tab" href="#a" role="tab" aria-controls="home" aria-selected="true">投稿一覧</a>
+     </li>
+     <li class="nav-item col">
+      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#b" role="tab" aria-controls="profile" aria-selected="false">プロフィール</a>
+     </li>
+     <li class="nav-item col">
+       <a class="nav-link" id="notice-tab" data-toggle="tab" href="#c" role="tab" aria-controls="notice" aria-selected="false">お知らせ</a>
+     </li>
+     <li class="nav-item col">
+       <a class="nav-link" id="illustration-tab" data-toggle="tab" href="#d" role="tab" aria-controls="illustration" aria-selected="false">イラスト</a>
+     </li>
+     <li class="nav-item col">
+       <a class="nav-link" id="commic-tab" data-toggle="tab" href="#e" role="tab" aria-controls="commic" aria-selected="false">コミック</a>
+     </li>
+     <li class="nav-item col">
+       <a class="nav-link" id="goods-tab" data-toggle="tab" href="#f" role="tab" aria-controls="goods" aria-selected="false">グッズ</a>
+     </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane bg-danger active" id="a" role="tabpanel" aria-labelledby="home-tab">
+          <% @posts.each do |t| %>
+              <%= image_tag t.images[0].to_s %>
+             <p><%= t.title %></p>
+          <% end %>
+      </div>
+      <div class="tab-pane bg-warning" id="b" role="tabpanel" aria-labelledby="profile-tab">
+          さ
+      </div>
+      <div class="tab-pane bg-success" id="c" role="tabpanel" aria-labelledby="notice-tab">
+          <% @notice.each do |t| %>
+              <%= image_tag t.images[0].to_s %>
+             <p><%= t.title %></p>
+          <% end %>
+      </div>
+      <div class="tab-pane " id="d" role="tabpanel" aria-labelledby="illustration-tab">
+          <% @illustration.each do |t| %>
+              <%= image_tag t.images[0].to_s %>
+          <% end %>
+      </div>
+      <div class="tab-pane bg-success" id="e" role="tabpanel" aria-labelledby="commic-tab">
+          <% @commic.each do |t| %>
+              <%= image_tag t.images[0].to_s %>
+             <p><%= t.title %></p>
+          <% end %>
+      </div>
+      <div class="tab-pane bg-success" id="f" role="tabpanel" aria-labelledby="goods-tab">
+          <% @goods.each do |t| %>
+              <%= image_tag t.images[0].to_s %>
+             <p><%= t.title %></p>
+          <% end %>
+      </div>
+    </div>
+</div>
+<%= link_to new_admin_post_path do %>
+   <div class="btn-style text-center p-0 shadow rounded-circle">
+     <div>
+       <%= image_tag'newpost.png', size: '40x40' %>
+     </div>
+   </div>
+<% end %>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>

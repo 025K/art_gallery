@@ -3,12 +3,53 @@
   <head>
     <title>ArtGallery</title>
     <%= csrf_meta_tags %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="d-flex flex-column vh-100">
+    <header class="shadow-sm" style="background-color:#006474;">
+      <nav class="navbar navbar-light">
+       <div class="container">
+         <div class="navbar-brand ">
+           <%= link_to root_path do %>
+              <%= image_tag'logo.png', size: '200x70',class: 'logo_image' %>
+           <% end %>
+         </div>
+         <button class="btn text-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+           <span class="navbar-toggler-icon"></span>
+         </button>
+         <div class="offcanvas offcanvas-end ofcv_style" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+           <div class="offcanvas-header">
+             <h4 id="offcanvasRightLabel">メニュー</h4>
+             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+           </div>
+           <div class="offcanvas-body">
+             <ul class="navbar-nav">
+               <li class="nav-item m-1">
+                  設定
+               </li>
+               <li class="nav-item m-1">
+                  
+               </li>
+               <li class="nav-item m-1">
+                  新規投稿
+               </li>
+             </ul>
+            </div>
+         </div>
+       </div>
+      </nav>
+    </header>
+    <main class="mb-auto" style="background-color:#141819;">
+      <%= yield %>
+    </main>
+    <footer class="text-light footer_style">
+      <div class="container text-center p-3 pt-4 text-dark">
+        <p>sample artgallery©</p>
+      </div>
+    </footer>
   </body>
 </html>

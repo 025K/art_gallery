@@ -13,3 +13,28 @@
  *= require_tree .
  *= require_self
  */
+ @import "bootstrap";
+ @import 'font-awesome-sprockets';
+ @import 'font-awesome';
+
+ .logo_image{
+  filter: invert(100%);
+ }
+ .main_style{
+  background-color:#d0a300;
+ }
+ .footer_style{
+  background-color:#9e1f40;
+ }
+ .ofcv_style{
+  background-color:#d0a300;
+  text-color: white;
+ }
+ .navbar-light .navbar-toggler-icon{
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(218 ,165 , 32, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='3' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.navbar-light .navbar-toggler{
+  /* 枠線 */
+  border-color: rgba(0, 0, 0, 0);
+}

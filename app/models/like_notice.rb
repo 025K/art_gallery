@@ -1,0 +1,2 @@
+class LikeNotice < ApplicationRecord
+end

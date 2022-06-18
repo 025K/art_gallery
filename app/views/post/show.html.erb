@@ -1,0 +1,75 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+       <% @post.images.each do |image| %>
+         <%= image_tag image.to_s %>
+       <% end %>
+      <h3><%= @post.title %></h3>
+      <p>
+        <%= @post.created_at.strftime('%Y/%m/%d') %>
+      </p>
+      <h5>
+      <%= @post.caption %>
+      </h5>
+      <div class="row">
+        <div class="col">
+          <% if @post.admin == current_admin %>
+            削除｜編集
+          <% end %>
+        </div>
+        <div class="col"></div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <%= form_with(model:[@post,@comment], local: true) do |f| %>
+      <%= f.text_area :comment_text, rows: '5', placeholder: "コメントを送る" %>
+      <%= f.submit "送信する" %>
+    <% end %>
+
+    コメント件数:<%= @post.comments.count %>件
+    <% @post.comments.each do |comment| %>
+      <% if comment.user_id == nil %>
+        <%= comment.admin.name %>
+        <%= comment.created_at.strftime('%Y/%m/%d') %>
+        <%= comment.comment_text %>
+      <% elsif comment.admin_id == nil %>
+        <%= comment.user.name %>
+        <%= comment.created_at.strftime('%Y/%m/%d') %>
+        <%= comment.comment_text %>
+      <% end %>
+      <% if comment.user == current_user %>
+        <div>
+          <%= link_to "削除", post_comment_path(comment.post, comment), method: :delete %>
+        </div>
+      <% elsif comment.admin == current_admin %>
+        <div>
+          <%= link_to "削除", post_comment_path(comment.post, comment), method: :delete %>
+        </div>
+      <% end %>
+        <% comment.reply_comments.order(:created_at).each do |reply| %>
+          <% if reply.user_id == nil %>
+            <%= reply.admin.name %>
+          <% elsif reply.admin_id == nil %>
+            <%= reply.user.name %>
+          <% end %>
+          <%= reply.comment_text %>
+          <% if reply.user == current_user %>
+          <div>
+            <%= link_to "削除", post_comment_path(reply.post, reply), method: :delete %>
+          </div>
+          <% elsif reply.admin == current_admin %>
+          <div>
+            <%= link_to "削除", post_comment_path(reply.post, reply), method: :delete %>
+          </div>
+          <% end %>
+        <% end %>
+        <%= form_with(model:[@post,@reply], local: true) do |f| %>
+          <%= f.text_area :comment_text, placeholder: "コメントを送る" %>
+          <%= f.hidden_field :post_id, value: @post.id %>
+          <%= f.hidden_field :parent_id, value: comment.id %>
+          <%= f.submit "送信する" %>
+        <% end %>
+    <% end %>
+  </div>
+</div>
