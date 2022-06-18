@@ -8,9 +8,12 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
   resources :post, only: [:show, :destroy] do
-    resources :comments, only: [:create, :destroy]
+    resources :likes, only: [:create, :destroy]
+    resources :comments, only: [:create, :destroy] do
+      resources :likes, only: [:create, :destroy]
+    end
   end
-  
+
   namespace :admin do
     resources :post, only: [:new, :create, :destroy]
   end

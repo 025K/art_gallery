@@ -8,7 +8,7 @@ class CommentsController < ApplicationController
       comment.admin_id = current_admin.id
     end
     comment.post_id = post.id
-    comment.save!
+    comment.save
     redirect_to post_path(post)
   end
 

@@ -16,6 +16,27 @@
           <% if @post.admin == current_admin %>
             削除｜編集
           <% end %>
+          <% if user_signed_in? %>
+            <% if @post.user_favorited_by?(current_user) %>
+              <%= link_to post_like_path(@post), method: :delete do %>
+                ♥<%= @post.likes.count %>いいね
+              <% end %>
+            <% else %>
+              <%= link_to post_likes_path(@post), method: :post do %>
+                ♡<%= @post.likes.count %>いいね
+              <% end %>
+            <% end %>
+          <% elsif admin_signed_in? %>
+            <% if @post.admin_favorited_by?(current_admin) %>
+              <%= link_to post_like_path(@post), method: :delete do %>
+                ♥<%= @post.likes.count %>いいね
+              <% end %>
+            <% else %>
+              <%= link_to post_likes_path(@post), method: :post do %>
+                ♡<%= @post.likes.count %>いいね
+              <% end %>
+            <% end %>
+          <% end %>
         </div>
         <div class="col"></div>
       </div>
@@ -38,6 +59,7 @@
         <%= comment.created_at.strftime('%Y/%m/%d') %>
         <%= comment.comment_text %>
       <% end %>
+
       <% if comment.user == current_user %>
         <div>
           <%= link_to "削除", post_comment_path(comment.post, comment), method: :delete %>
@@ -47,6 +69,7 @@
           <%= link_to "削除", post_comment_path(comment.post, comment), method: :delete %>
         </div>
       <% end %>
+
         <% comment.reply_comments.order(:created_at).each do |reply| %>
           <% if reply.user_id == nil %>
             <%= reply.admin.name %>
@@ -54,6 +77,7 @@
             <%= reply.user.name %>
           <% end %>
           <%= reply.comment_text %>
+
           <% if reply.user == current_user %>
           <div>
             <%= link_to "削除", post_comment_path(reply.post, reply), method: :delete %>
@@ -63,7 +87,9 @@
             <%= link_to "削除", post_comment_path(reply.post, reply), method: :delete %>
           </div>
           <% end %>
+
         <% end %>
+
         <%= form_with(model:[@post,@reply], local: true) do |f| %>
           <%= f.text_area :comment_text, placeholder: "コメントを送る" %>
           <%= f.hidden_field :post_id, value: @post.id %>
